@@ -19,7 +19,7 @@ futarRouter.get('/', async (req, res) => {
 });
 
 futarRouter.get('/:fazon', async (req, res) => {
-    // ide akkor jön ha http
+    
     try {
         const fazon = req.params.fazon;
         const futar = await futarModel.getFutarById(fazon);
@@ -40,11 +40,11 @@ futarRouter.post('/', async (req, res) => {
             return res.status(400).send({ error: 'Hiányzó adatok.' });
         }
 
-        const { Nev, Jarmu_Tipus, Rendszam, Telefon } = req.body;
+        const { Azon, Nev, Telefon } = req.body;
 
-        if (!Nev || !Jarmu_Tipus || !Rendszam) {
+        if (!Nev || !Telefon ) {
             return res.status(400).send({
-                error: 'Név, jármű típus és rendszám megadása kötelező.'
+                error: 'Név és Telefonszám megadása kötelező.'
             });
         }
 
