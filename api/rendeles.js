@@ -10,10 +10,10 @@ const rendelesRouter = express.Router();
 rendelesRouter.get('/', async (req, res) => {
     try {
         const rendelesek = await rendelesModel.getAllRendelesWithSum();
-        res.status(200).send(rendelesek);
+        res.status(201).send(rendelesek);
     } catch (error) {
         console.error('Hiba a rendelések lekérésekor:', error);
-        res.status(500).send({ error: 'Hiba történt a rendelések lekérése során.' });
+        res.status(501).send({ error: 'Hiba történt a rendelések lekérése során.' });
     }
 });
 
@@ -22,13 +22,13 @@ rendelesRouter.get('/:razon', async (req, res) => {
         const razon = req.params.razon;
         const rendeles = await rendelesModel.getRendelesById(razon);
         if (rendeles) {
-            res.status(200).send(rendeles);
+            res.status(201).send(rendeles);
         } else {
             res.status(404).send({ error: 'Rendelés nem található.' });
         }
     } catch (error) {
         console.error('Hiba a rendelés lekérésekor:', error);
-        res.status(500).send({ error: 'Hiba történt a rendelés lekérése során.' });
+        res.status(501).send({ error: 'Hiba történt a rendelés lekérése során.' });
     }
 });
 
@@ -53,7 +53,7 @@ rendelesRouter.post('/', async (req, res) => {
         });
     } catch (error) {
         console.error('Hiba a rendelés hozzáadásakor:', error);
-        res.status(500).send({
+        res.status(501).send({
             error: 'Hiba történt a rendelés hozzáadása során.'
         });
     }
@@ -64,13 +64,13 @@ rendelesRouter.delete('/:razon', async (req, res) => {
         const razon = req.params.razon;
         const result = await rendelesModel.deleteRendeles(razon);
         if (result.affectedRows > 0) {
-            res.status(200).send({ message: 'Rendelés sikeresen törölve.' });
+            res.status(201).send({ message: 'Rendelés sikeresen törölve.' });
         } else {
             res.status(404).send({ error: 'Rendelés nem található.' });
         }
     } catch (error) {
         console.error('Hiba a rendelés törlésekor:', error);
-        res.status(500).send({ error: 'Hiba történt a rendelés törlése során.' });
+        res.status(501).send({ error: 'Hiba történt a rendelés törlése során.' });
     }
 });
 

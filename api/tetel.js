@@ -11,10 +11,10 @@ tetelRouter.get('/:razon', async (req, res) => {
     try {
         const razon = req.params.razon;
         const tetelList = await tetelModel.getTetelByRendelesId(razon);
-        res.status(200).send(tetelList);
+        res.status(201).send(tetelList);
     } catch (error) {
         console.error('Hiba a tételek lekérésekor:', error);
-        res.status(500).send({ error: 'Hiba történt a tételek lekérése során.' });
+        res.status(501).send({ error: 'Hiba történt a tételek lekérése során.' });
     }
 });
 
@@ -39,7 +39,7 @@ tetelRouter.post('/', async (req, res) => {
         });
     } catch (error) {
         console.error('Hiba a tétel hozzáadásakor:', error);
-        res.status(500).send({
+        res.status(501).send({
             error: 'Hiba történt a tétel hozzáadása során.'
         });
     }
@@ -62,12 +62,12 @@ tetelRouter.put('/:razon/:pazon', async (req, res) => {
         }
 
         const result = await tetelModel.updateTetel(razon, pazon, req.body);
-        res.status(200).send({
+        res.status(201).send({
             message: 'Tétel sikeresen frissítve.'
         });
     } catch (error) {
         console.error('Hiba a tétel frissítésekor:', error);
-        res.status(500).send({
+        res.status(501).send({
             error: 'Hiba történt a tétel frissítése során.'
         });
     }
@@ -79,12 +79,12 @@ tetelRouter.delete('/:razon/:pazon', async (req, res) => {
         const pazon = req.params.pazon;
 
         const result = await tetelModel.deleteTetel(razon, pazon);
-        res.status(200).send({
+        res.status(201).send({
             message: 'Tétel sikeresen törölve.'
         });
     } catch (error) {
         console.error('Hiba a tétel törlésekor:', error);
-        res.status(500).send({
+        res.status(501).send({
             error: 'Hiba történt a tétel törlése során.'
         });
     }

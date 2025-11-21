@@ -11,10 +11,10 @@ const futarRouter = express.Router();
 futarRouter.get('/', async (req, res) => {
     try {
         const futarok = await futarModel.getAllFutars();
-        res.status(200).send(futarok);
+        res.status(201).send(futarok);
     } catch (error) {
         console.error('Hiba a futárok lekérésekor:', error);
-        res.status(500).send({ error: 'Hiba történt a futárok lekérése során.' });
+        res.status(501).send({ error: 'Hiba történt a futárok lekérése során.' });
     }
 });
 
@@ -24,13 +24,13 @@ futarRouter.get('/:fazon', async (req, res) => {
         const fazon = req.params.fazon;
         const futar = await futarModel.getFutarById(fazon);
         if (futar) {
-            res.status(200).send(futar);
+            res.status(201).send(futar);
         } else {
             res.status(404).send({ error: 'Futár nem található.' });
         }
     } catch (error) {
         console.error('Hiba a futár lekérésekor:', error);
-        res.status(500).send({ error: 'Hiba történt a futár lekérése során.' });
+        res.status(501).send({ error: 'Hiba történt a futár lekérése során.' });
     }
 });
 
@@ -55,7 +55,7 @@ futarRouter.post('/', async (req, res) => {
         });
     } catch (error) {
         console.error('Hiba a futár hozzáadásakor:', error);
-        res.status(500).send({
+        res.status(501).send({
             error: 'Hiba történt a futár hozzáadása során.'
         });
     }
@@ -71,13 +71,13 @@ futarRouter.put('/:fazon', async (req, res) => {
 
         const updated = await futarModel.updateFutar(fazon, req.body);
         if (updated) {
-            res.status(200).send({ message: 'Futár sikeresen frissítve.' });
+            res.status(201).send({ message: 'Futár sikeresen frissítve.' });
         } else {
             res.status(404).send({ error: 'Futár nem található.' });
         }
     } catch (error) {
         console.error('Hiba a futár frissítésekor:', error);
-        res.status(500).send({ error: 'Hiba történt a futár frissítése során.' });
+        res.status(501).send({ error: 'Hiba történt a futár frissítése során.' });
     }
 });
 
@@ -86,13 +86,13 @@ futarRouter.delete('/:fazon', async (req, res) => {
         const fazon = req.params.fazon;
         const deleted = await futarModel.deleteFutar(fazon);
         if (deleted) {
-            res.status(200).send({ message: 'Futár sikeresen törölve.' });
+            res.status(201).send({ message: 'Futár sikeresen törölve.' });
         } else {
             res.status(404).send({ error: 'Futár nem található.' });
         }
     } catch (error) {
         console.error('Hiba a futár törlésekor:', error);
-        res.status(500).send({ error: 'Hiba történt a futár törlése során.' });
+        res.status(501).send({ error: 'Hiba történt a futár törlése során.' });
     }
 });
 
